@@ -1,16 +1,12 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
-var crypto = require('crypto');
+var Schema = mongoose.Schema;
 
-var objectSchema = new mongoose.Schema({
+var objectSchema = new Schema({
   name: String,
   location: String,
   user: String
 });
 
-/**
- * Hash the password for security.
- * "Pre" is a Mongoose middleware that executes before each user.save() call.
- */
 
-module.exports = mongoose.model('Event', eventSchema);
+module.exports = mongoose.model('Obj', objectSchema);
+mongoose.connect('mongodb://localhost/test');

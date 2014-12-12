@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+var Obj = mongoose.model('Obj');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -27,37 +29,47 @@ router.get('/userlist', function(req, res) {
 /* POST to Add User Service */
 router.post('/add', function(req, res) {
 
-    // Set our internal DB variable
-    var db = req.db;
+    // // Set our internal DB variable
+    // var db = req.db;
 
     // Get our form values. These rely on the "name" attributes
     var nameObj = req.body.nameObj;
     var locationObj = req.body.locationObj;
     var user = req.body.user;
 
-    // Set our collection
-    var collection = db.get('usercollection');
-
     // if(userEmail.indexOf("@") <= -1) {
     //     res.send("Email address not valid");
-
-    
-    // Submit to the DB
-    collection.insert({
-        "nameObj" : nameObj,
-        "locationObj" : locationObj,
-        "user" : user
-    }, function (err, doc) {
-        if (err) {
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
-        }
-        else {
-            // If it worked, set the header so the address bar doesn't still say /adduser
-            // And forward to success page
-            res.send("Success");
-        }
+    var newObj = new Obj({
+    	name: nameObj,
+    	location: locationObj,
+    	user: user
     });
+
+    newObj.save(function (err) {
+    	if (err) {
+    		res.send("There was a problem adding the info to MongoDB.");
+    	}
+    	else {
+    		res.redirect('/');
+    	}
+    });
+    
+    // // Submit to the DB
+    // collection.insert({
+    //     "nameObj" : nameObj,
+    //     "locationObj" : locationObj,
+    //     "user" : user
+    // }, function (err, doc) {
+    //     if (err) {
+    //         // If it failed, return error
+    //         res.send("There was a problem adding the information to the database.");
+    //     }
+    //     else {
+    //         // If it worked, set the header so the address bar doesn't still say /adduser
+    //         // And forward to success page
+    //         res.send("Success");
+    //     }
+    // });
 });
 
 module.exports = router;
