@@ -8,16 +8,16 @@ router.get('/', function(req, res) {
 
 
 
-// /* GET Userlist page. */
-// router.get('/userlist', function(req, res) {
-//     var db = req.db;
-//     var collection = db.get('usercollection');
-//     collection.find({},{},function(e,docs){
-//         res.render('userlist', {
-//             "userlist" : docs
-//         });
-//     });
-// });
+/* GET Userlist page. */
+router.get('/userlist', function(req, res) {
+    var db = req.db;
+    var collection = db.get('usercollection');
+    collection.find({},{},function(e,docs){
+        res.render('userlist', {
+            "userlist" : docs
+        });
+    });
+});
 
 // /* GET New User page. */
 // router.get('/newuser', function(req, res) {
@@ -25,7 +25,7 @@ router.get('/', function(req, res) {
 // });
 
 /* POST to Add User Service */
-router.post('/addObj', function(req, res) {
+router.post('/add', function(req, res) {
 
     // Set our internal DB variable
     var db = req.db;
@@ -38,8 +38,8 @@ router.post('/addObj', function(req, res) {
     // Set our collection
     var collection = db.get('usercollection');
 
-    if(userEmail.indexOf("@") <= -1) {
-        res.send("Email address not valid");
+    // if(userEmail.indexOf("@") <= -1) {
+    //     res.send("Email address not valid");
 
     
     // Submit to the DB

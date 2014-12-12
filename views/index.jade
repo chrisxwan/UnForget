@@ -57,16 +57,16 @@ head
     header#top.header
         h1 UnForget 
         #form.col-md-offset-5  
-          form.form-horizontal(name="adduser",method="post",action="/adduser" role='form')
+          form.form-horizontal(name="add",method="post",action="/add" role='form')
             .form-group
               .col-md-4
-                input#nameObj.form-control(type="text", placeholder="Object Name", name="firstname")
+                input#nameObj.form-control(type="text", placeholder="Object Name", name="nameObj")
             .form-group
               .col-md-4
-                input#locationObj.form-control(type="text", placeholder="Location", name="lastname")
+                input#locationObj.form-control(type="text", placeholder="Location", name="locationObj")
             .form-group
               .col-md-4
-                input#user.form-control(type="text", placeholder="Who are you?", name="useremail")
+                input#user.form-control(type="text", placeholder="Who are you?", name="user")
             .form-group
               .col-md-4
                  button.btn.btn-default(type="submit") submit     
