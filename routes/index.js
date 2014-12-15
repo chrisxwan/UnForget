@@ -14,7 +14,7 @@ var Obj = mongoose.model('Obj');
 // });
 
 router.get('/', function(req, res) {
-	res.render('index', { title: 'Add New User' });
+	res.render('index', { title: 'UnForget' });
 });
 
 
