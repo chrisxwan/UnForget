@@ -4,18 +4,18 @@ var mongoose = require('mongoose');
 var Obj = mongoose.model('Obj');
 
 /* GET home page. */
-// router.get('/', function(req, res, next) {
-// 	Obj.find().toArray(function (error, objs) {
-// 		res.render('index', { 
-// 			title: 'Express',
-// 			objs: objs || [] 
-// 		});
-// 	});
-// });
-
-router.get('/', function(req, res) {
-	res.render('index', { title: 'UnForget' });
+router.get('/', function(req, res, next) {
+	Obj.find().toArray(function (error, objs) {
+		res.render('index', { 
+			title: 'Express',
+			objs: objs || [] 
+		});
+	});
 });
+
+// router.get('/', function(req, res) {
+// 	res.render('index', { title: 'UnForget' });
+// });
 
 
 /* GET Userlist page. */

@@ -43,6 +43,9 @@ block content
           .form-group
             .col-md-4
                button.btn.btn-default(type="submit") submit
+      ul
+        each obj in objs
+          li #{obj.name}
   // About
   section#about.about
     .container
