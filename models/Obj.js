@@ -9,4 +9,4 @@ var objectSchema = new Schema({
 
 
 module.exports = mongoose.model('Obj', objectSchema);
-mongoose.connect('mongodb://localhost/test');
+// mongoose.connect('mongodb://localhost/test');

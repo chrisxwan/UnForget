@@ -1,4 +1,6 @@
 require('./models/obj');
+require('./models/user');
+
 
 var express = require('express');
 var path = require('path');
@@ -9,7 +11,9 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
+mongoose.connect('mongodb://localhost/test');
 var session = require('express-session');
+var flash = require('express-flash');
 var errorHandler = require('errorhandler');
 // var csrf = require('lusca').csrf();
 var methodOverride = require('method-override');

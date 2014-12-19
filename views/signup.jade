@@ -4,14 +4,14 @@ block content
   header#top.header
     h1 Sign up
     #signup-form.col-md-offset-4
-      form#signupFormHelper.form-horizontal(method='POST')
+      form#signupFormHelper.form-horizontal(method='POST', action='/signup')
         input(type='hidden', name='_csrf', value=_csrf)
         .form-group
           .col-sm-6
-            input.form-control(type='text', name='name' id='name' placeholder='Name')
+            input.form-control(type='text', name='name' id='name' placeholder='Name', autofocus)
         .form-group
           .col-sm-6
-            input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus)
+            input.form-control(type='email', name='email', id='email', placeholder='Email')
         .form-group
           .col-sm-6
             input.form-control(type='tel', name='phoneNumber', id='phoneNumber', placeholder='Phone Number')
