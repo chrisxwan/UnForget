@@ -7,8 +7,27 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
+var mongoose = require('mongoose');
+var db = mongoose.connection;
+var session = require('express-session');
+var errorHandler = require('errorhandler');
+var csrf = require('lusca').csrf();
+var methodOverride = require('method-override');
+var path = require('path');
+var passport = require('passport');
+var expressValidator = require('express-validator');
+var connectAssets = require('connect-assets');
+var secrets = require('./config/secrets');
+var passportConf = require('./config/passport');
+var MongoStore = require('connect-mongo')(session);
 
 var app = express();
+
+app.use(function(req, res, next) {
+  req.db = {};
+  req.db.objs = db.collection('objs');
+  next();
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

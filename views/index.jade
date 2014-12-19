@@ -43,9 +43,23 @@ block content
           .form-group
             .col-md-4
                button.btn.btn-default(type="submit") submit
-      ul
-        each obj in objs
-          li #{obj.name}
+      br
+      div.table-responsive#format
+        table.table.table-hover#table
+          thead
+            tr 
+              th Object
+              th Last Placed 
+              th Last Touched
+              th Delete?
+          tbody
+            each obj in objs
+              tr
+                td #{obj.name}
+                td #{obj.location}
+                td #{obj.user}
+                td
+                  button.btn.btn-danger.btn-xs Delete
   // About
   section#about.about
     .container

@@ -5,18 +5,14 @@ var Obj = mongoose.model('Obj');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	Obj.find().toArray(function (error, objs) {
-		res.render('index', { 
-			title: 'Express',
-			objs: objs || [] 
+	req.db.objs.find().toArray(function (error, objs) {
+		if(error) return next(error);
+		res.render('index', {
+			title: 'UnForget',
+			objs: objs || []
 		});
 	});
 });
-
-// router.get('/', function(req, res) {
-// 	res.render('index', { title: 'UnForget' });
-// });
-
 
 /* GET Userlist page. */
 router.get('/userlist', function(req, res) {
