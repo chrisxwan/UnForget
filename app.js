@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 var session = require('express-session');
 var errorHandler = require('errorhandler');
-var csrf = require('lusca').csrf();
+// var csrf = require('lusca').csrf();
 var methodOverride = require('method-override');
 var path = require('path');
 var passport = require('passport');
@@ -40,7 +40,7 @@ app.set('view engine', 'jade');
  * CSRF whitelist.
  */
 
-var csrfExclude = ['/url1', '/url2'];
+// var csrfExclude = ['/url1', '/url2'];
 
 /**
  * CONFIGURE EXPRESS
@@ -63,11 +63,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function(req, res, next) {
-  // CSRF protection.
-  if (_.contains(csrfExclude, req.path)) return next();
-  csrf(req, res, next);
-});
+// app.use(function(req, res, next) {
+//   // CSRF protection.
+//   if (_.contains(csrfExclude, req.path)) return next();
+//   csrf(req, res, next);
+// });
 app.use(function(req, res, next) {
   // Make user object available in templates.
   res.locals.user = req.user;

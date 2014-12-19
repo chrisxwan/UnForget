@@ -2,15 +2,16 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Obj = mongoose.model('Obj');
+var secrets = require('../config/secrets');
+var passport = require('passport');
+var _ = require('lodash');
+var async = require('async');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	req.db.objs.find().toArray(function (error, objs) {
-		if(error) return next(error);
-		res.render('index', {
-			title: 'UnForget',
-			objs: objs || []
-		});
+	res.render('index', {
+		title: 'UnForget'
 	});
 });
 
@@ -32,6 +33,24 @@ router.get('/signup', function(req, res) {
 	});
 });
 
+/* GET Login page. */
+router.get('/login', function(req, res) {
+	res.render('login', {
+		title: 'Login'
+	});
+});
+
+/* GET Dashboard page. */
+router.get('/dashboard', function(req, res) {
+	req.db.objs.find().toArray(function (error, objs) {
+		if(error) return next(error);
+		res.render('dashboard', {
+			title: 'Dashboard',
+			objs: objs || []
+		});
+	});
+});
+
 // /* GET New User page. */
 // router.get('/newuser', function(req, res) {
 //     res.render('newuser', { title: 'Add New User' });
@@ -48,8 +67,6 @@ router.post('/add', function(req, res) {
     var locationObj = req.body.locationObj;
     var user = req.body.user;
 
-    // if(userEmail.indexOf("@") <= -1) {
-    //     res.send("Email address not valid");
     var newObj = new Obj({
     	name: nameObj,
     	location: locationObj,

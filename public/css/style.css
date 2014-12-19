@@ -35,3 +35,8 @@ h1 {
 #signupButton {
 	margin-right:65px;
 }
+
+.buttonHolder {
+	margin-top: 150px;
+	text-align: center;
+}
