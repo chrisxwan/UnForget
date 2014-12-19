@@ -25,6 +25,13 @@ router.get('/userlist', function(req, res) {
     });
 });
 
+/* GET Signup page. */
+router.get('/signup', function(req, res) {
+	res.render('signup', {
+		title: 'Signup'
+	});
+});
+
 // /* GET New User page. */
 // router.get('/newuser', function(req, res) {
 //     res.render('newuser', { title: 'Add New User' });

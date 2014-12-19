@@ -1,24 +1,29 @@
 extends layout
 
 block content
-  .page-header
-    h3 Sign up
-  form.form-horizontal(id='signup-form', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='email') Email
-      .col-sm-7
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus)
-    .form-group
-      label.col-sm-3.control-label(for='password') Password
-      .col-sm-7
-        input.form-control(type='password', name='password', id='password', placeholder='Password')
-    .form-group
-      label.col-sm-3.control-label(for='confirmPassword') Confirm Password
-      .col-sm-7
-        input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password')
-    .form-group
-      .col-sm-offset-3.col-sm-7
-        button.btn.btn-success(type='submit')
-          span.ion-person-add
-          | Signup
+  header#top.header
+    h1 Sign up
+    br
+    #signup-form.col-md-offset-4
+      form#signupFormHelper.form-horizontal(method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+          .col-sm-6
+            input.form-control(type='text', name='name' id='name' placeholder='Name')
+        .form-group
+          .col-sm-6
+            input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus)
+        .form-group
+          .col-sm-6
+            input.form-control(type='tel', name='phoneNumber', id='phoneNumber', placeholder='Phone Number')
+        .form-group
+          .col-sm-6
+            input.form-control(type='password', name='password', id='password', placeholder='Password')
+        .form-group
+          .col-sm-6
+            input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password')
+        .form-group
+          .col-sm-7
+            button.btn.btn-success#signupButton(type='submit')
+              span.ion-person-add
+              | Signup

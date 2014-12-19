@@ -16,12 +16,20 @@ h1 {
 #table{
 	background-color: white;
 	opacity: 0.8;
-/*	margin-left: 250px;
-	margin-right: 250px;*/
 	border-radius: 15px;
 }
 
 #format{
 	margin-left: 250px;
 	margin-right: 250px;
+}
+
+#signup-form {
+	margin-top:30px;
+	text-align: center;
+	/*background-color: white;*/
+}
+
+#signupButton {
+	margin-right:65px;
 }

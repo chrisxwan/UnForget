@@ -42,8 +42,9 @@ app.set('view engine', 'jade');
 
 var csrfExclude = ['/url1', '/url2'];
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+/**
+ * CONFIGURE EXPRESS
+ */
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
