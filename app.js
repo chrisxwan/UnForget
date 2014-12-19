@@ -20,8 +20,11 @@ var connectAssets = require('connect-assets');
 var secrets = require('./config/secrets');
 var passportConf = require('./config/passport');
 var MongoStore = require('connect-mongo')(session);
+var _ = require('lodash');
 
 var app = express();
+
+// mongoose.connect(secrets.db);
 
 app.use(function(req, res, next) {
   req.db = {};
@@ -33,14 +36,51 @@ app.use(function(req, res, next) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+/**
+ * CSRF whitelist.
+ */
+
+var csrfExclude = ['/url1', '/url2'];
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(expressValidator());
+app.use(methodOverride());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: secrets.sessionSecret,
+  store: new MongoStore({
+    url: secrets.db,
+    auto_reconnect: true
+  })
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(function(req, res, next) {
+  // CSRF protection.
+  if (_.contains(csrfExclude, req.path)) return next();
+  csrf(req, res, next);
+});
+app.use(function(req, res, next) {
+  // Make user object available in templates.
+  res.locals.user = req.user;
+  next();
+});
+app.use(function(req, res, next) {
+  // Remember original destination before login.
+  var path = req.path.split('/')[1];
+  if (/auth|login|new_event|logout|signup|fonts|favicon/i.test(path)) {
+    return next();
+  }
+  req.session.returnTo = req.path;
+  next();
+});
 
 app.use('/', routes);
 
