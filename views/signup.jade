@@ -3,7 +3,6 @@ extends layout
 block content
   header#top.header
     h1 Sign up
-    br
     #signup-form.col-md-offset-4
       form#signupFormHelper.form-horizontal(method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
