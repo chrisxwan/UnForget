@@ -98,21 +98,29 @@ router.post('/login', function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) return next(err);
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect('/');
+      res.redirect('/dashboard');
     });
   })(req, res, next);
 });
 
 /* GET Dashboard page. */
 router.get('/dashboard', function(req, res) {
+  parseName = function(name) {
+    var index = name.indexOf(" ");
+    name = name.substring(0, index);
+    return name;
+  };
+
 	req.db.objs.find().toArray(function (error, objs) {
 		if(error) return next(error);
 		res.render('dashboard', {
 			title: 'Dashboard',
+      userName: parseName(req.user.name),
 			objs: objs || []
 		});
 	});
 });
+
 
 /* POST to Add User Service */
 router.post('/add', function(req, res) {

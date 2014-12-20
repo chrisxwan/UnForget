@@ -55,7 +55,6 @@ app.use(bodyParser.urlencoded());
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
-app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   resave: true,
@@ -68,6 +67,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 // app.use(function(req, res, next) {
 //   // CSRF protection.
 //   if (_.contains(csrfExclude, req.path)) return next();
