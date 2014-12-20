@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Obj = mongoose.model('Obj');
 var User = mongoose.model('User');
 var secrets = require('../config/secrets');
+var crypto = require('crypto');
 var passport = require('passport');
 var _ = require('lodash');
 var async = require('async');
@@ -92,9 +93,7 @@ router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) return next(err);
     if (!user) {
-      req.flash('errors', { msg: info.message });
       return res.redirect('/login');
-      // return res.redirect('/login');
     }
     req.logIn(user, function(err) {
       if (err) return next(err);
