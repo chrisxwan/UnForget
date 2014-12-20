@@ -28,12 +28,12 @@ block content
   //-       a(href='#contact') Contact
   // Header
   header#top.header
-      h1 UnForget 
+      img#logo(src='/img/logo.png')
+      h1 UNFORGET
       .buttonHolder
-        a.button#signin-redirect.btn.btn-primary.btn-lg(href='/login') Login
+        a.button#signin-redirect.btn.btn-primary(href='/login') Login
         br
-        br
-        a.button#signup-redirect.btn.btn-default.btn-lg(href='/signup') Sign Up
+        a.button#signup-redirect.btn.btn-default(href='/signup') Sign Up
       //- #form.col-md-offset-5  
       //-   form.form-horizontal(name="add",method="post",action="/add" role='form')
       //-     .form-group
@@ -188,10 +188,6 @@ block content
           hr.small
           |                     
           p.text-muted Copyright &copy; Your Website 2014
-  // jQuery
-  script(src='js/jquery.js')
-  // Bootstrap Core JavaScript
-  script(src='js/bootstrap.min.js')
   // Custom Theme JavaScript
   script.
     // Closes the sidebar menu
