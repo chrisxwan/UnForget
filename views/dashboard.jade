@@ -28,6 +28,11 @@ block content
   //-       a(href='#contact') Contact
   // Header
   header#top.header
+      nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+        .container-fluid
+            .navbar-header
+              a.navbar-brand(href='#') Unforget
+            a.navbar-text.navbar-right.navbar-link#navbar-logout(href='/logout') Logout
       h1 UnForget 
       h3 Hello, #{userName}!
       #form.col-md-offset-5  

@@ -30,6 +30,7 @@ router.get('/userlist', function(req, res) {
 
 /* GET Signup page. */
 router.get('/signup', function(req, res) {
+  if(req.user) return res.redirect('/dashboard');
 	res.render('signup', {
 		title: 'Signup'
 	});
@@ -72,6 +73,7 @@ router.post('/signup', function(req, res, next) {
 
 /* GET Login page. */
 router.get('/login', function(req, res) {
+  if (req.user) return res.redirect('/dashboard');
 	res.render('login', {
 		title: 'Login'
 	});
@@ -148,6 +150,11 @@ router.post('/add', function(req, res) {
     	}
     });
     
+});
+
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = router;
