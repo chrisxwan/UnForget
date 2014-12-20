@@ -61,7 +61,7 @@ router.post('/signup', function(req, res, next) {
     }
     newUser.save(function(err) {
       if (err) return next(err);
-      req.logIn(user, function(err) {
+      req.logIn(newUser, function(err) {
         if (err) return next(err);
         res.redirect('/');
       });

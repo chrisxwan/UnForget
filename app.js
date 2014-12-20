@@ -55,6 +55,7 @@ app.use(bodyParser.urlencoded());
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   resave: true,
