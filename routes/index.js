@@ -148,8 +148,10 @@ router.get('/logout', function(req, res) {
 
 /* DELETE Objects */
 router.get('/delete/:id', function(req, res) {
-  req.db.objs.remove({ id: req.param.id}, function(err) {
-    res.redirect( '/dashboard' );
+  Obj.findById(req.params.id, function (error, obj) {
+    obj.remove(function(error, obj) {
+      res.redirect('/dashboard');
+    });
   });
 });
 
