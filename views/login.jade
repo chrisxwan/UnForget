@@ -2,7 +2,8 @@ extends layout
 
 block content
   header#top.header
-    h1 Login
+    img#logo(src='/img/logo.png')
+    h1 LOGIN
     #signup-form.col-md-offset-4
       form#signupFormHelper.form-horizontal(method='POST')
         input(type='hidden', name='_csrf', value=_csrf)

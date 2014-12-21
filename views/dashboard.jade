@@ -43,9 +43,9 @@ block content
           .form-group
             .col-md-4
               input#locationObj.form-control(type="text", placeholder="Location", name="locationObj")
-          .form-group
-            .col-md-4
-              input#user.form-control(type="text", placeholder="Who are you?", name="user")
+          //- .form-group
+          //-   .col-md-4
+          //-     input#user.form-control(type="text", placeholder="Who are you?", name="user")
           .form-group
             .col-md-4
                button.btn.btn-default(type="submit") submit
@@ -57,7 +57,7 @@ block content
               th Object
               th Last Placed 
               th Last Touched
-              th Delete?
+              th Update/Delete?
           tbody
             each obj in objs
               tr
@@ -65,7 +65,9 @@ block content
                 td #{obj.location}
                 td #{obj.user}
                 td
-                  button.btn.btn-danger.btn-xs Delete
+                  button.btn.btn-primary.btn-xs.edit-delete Update
+                  p.edit-delete / 
+                  button.btn.btn-danger.btn-xs.edit-delete Delete
   // About
   section#about.about
     .container

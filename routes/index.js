@@ -133,12 +133,11 @@ router.post('/add', function(req, res) {
     // Get our form values. These rely on the "name" attributes
     var nameObj = req.body.nameObj;
     var locationObj = req.body.locationObj;
-    var user = req.body.user;
 
     var newObj = new Obj({
     	name: nameObj,
     	location: locationObj,
-    	user: user
+    	user: req.user.name
     });
 
     newObj.save(function (err) {
@@ -146,7 +145,7 @@ router.post('/add', function(req, res) {
     		res.send("There was a problem adding the info to MongoDB.");
     	}
     	else {
-    		res.redirect('/');
+    		res.redirect('/dashboard');
     	}
     });
     
