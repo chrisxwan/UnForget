@@ -28,8 +28,8 @@ module.exports = {
   },
   
   mandrill: {
-    user: process.env.MANDRILL_USER || 'christopher.wan@yale.edu',
-    password: process.env.MANDRILL_PASSWORD || 'FZy)ArtMXK.CJ7'
+    user: process.env.MANDRILL_USER || 'chrisxwan@gmail.com',
+    password: process.env.MANDRILL_PASSWORD || 'jSYR4_PzhEUqlAVBZH9z0w'
   },
 
   sendgrid: {

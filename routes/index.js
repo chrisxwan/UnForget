@@ -8,6 +8,8 @@ var crypto = require('crypto');
 var passport = require('passport');
 var _ = require('lodash');
 var async = require('async');
+var twilio = require('twilio')(secrets.twilio.sid, secrets.twilio.token);
+var nodemailer = require('nodemailer');
 
 
 /* GET home page. */
@@ -106,6 +108,7 @@ router.get('/dashboard', function(req, res) {
 		if(error) return next(error);
 		res.render('dashboard', {
 			title: 'Dashboard',
+      //need to fix this if there is nobody logged in
       userName: parseName(req.user.name),
 			objs: objs || []
 		});
@@ -113,11 +116,8 @@ router.get('/dashboard', function(req, res) {
 });
 
 
-/* POST to Add User Service */
+/* POST to Add Object */
 router.post('/add', function(req, res) {
-
-    // // Set our internal DB variable
-    // var db = req.db;
 
     // Get our form values. These rely on the "name" attributes
     var nameObj = req.body.nameObj;
@@ -134,8 +134,51 @@ router.post('/add', function(req, res) {
     		res.send("There was a problem adding the info to MongoDB.");
     	}
     	else {
-    		res.redirect('/dashboard');
-    	}
+        req.db.users.find().toArray(function (error, users, next) {
+          if(error) return next(error);
+
+          var transporter = nodemailer.createTransport({
+            service: 'Mandrill',
+            auth: {
+              user: secrets.mandrill.user,
+              pass: secrets.mandrill.password
+            }
+          });
+          for(x=0; x<users.length; x++) {
+            var mailOptions = {
+              to: users[x].email,
+              from: 'robot@unforget.com',
+              subject: 'your shit has been moved.',
+              text: req.user.name + ' has just moved ' + nameObj + ' to ' +locationObj
+            };
+            transporter.sendMail(mailOptions,function(err, info) {
+              if(error) {
+                console.log(error);
+              }
+              else {
+                console.log('Message sent: ' + info.response);
+              }
+            });
+          }
+          // for(x=0; x<users.length; x++) {
+          //   twilio.sendSms({
+          //     to: '+1' + users[x].phoneNumber,
+          //     from: '+13472235148',
+          //     body: req.user + 'has just moved ' + nameObj + 'to ' +locationObj
+          //   }, function(error, message) {
+          //     if (!error) {
+          //       console.log('Success! The SID for this SMS message is:');
+          //       console.log(message.sid);
+          //       console.log('Message sent on:');
+          //       console.log(message.dateCreated);
+          //     } else {
+          //       console.log('Oops! There was an error.');
+          //     }
+          //   });  
+          // }
+    		  res.redirect('/dashboard');
+    	});
+      }
     });
     
 });

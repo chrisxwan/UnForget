@@ -33,6 +33,7 @@ var app = express();
 app.use(function(req, res, next) {
   req.db = {};
   req.db.objs = db.collection('objs');
+  req.db.users = db.collection('users');
   next();
 })
 
