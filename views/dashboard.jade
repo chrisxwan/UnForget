@@ -31,7 +31,7 @@ block content
       nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
         .container-fluid
             .navbar-header
-              a.navbar-brand(href='#') Unforget
+              a.navbar-brand(href='/') Unforget
             a.navbar-text.navbar-right.navbar-link#navbar-logout(href='/logout') Logout
       h1 UnForget 
       h3 Hello, #{userName}!
@@ -67,7 +67,7 @@ block content
                 td
                   button.btn.btn-primary.btn-xs.edit-delete Update
                   p.edit-delete / 
-                  button.btn.btn-danger.btn-xs.edit-delete Delete
+                  a.button.btn.btn-danger.btn-xs.edit-delete(href='/delete/#{obj._id}') Delete
   // About
   section#about.about
     .container

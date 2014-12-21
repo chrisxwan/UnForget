@@ -17,17 +17,6 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-/* GET Userlist page. */
-router.get('/userlist', function(req, res) {
-    var db = req.db;
-    var collection = db.get('usercollection');
-    collection.find({},{},function(e,docs){
-        res.render('userlist', {
-            "userlist" : docs
-        });
-    });
-});
-
 /* GET Signup page. */
 router.get('/signup', function(req, res) {
   if(req.user) return res.redirect('/dashboard');
@@ -151,9 +140,17 @@ router.post('/add', function(req, res) {
     
 });
 
+/* GET Logout */
 router.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
+});
+
+/* DELETE Objects */
+router.get('/delete/:id', function(req, res) {
+  req.db.objs.remove({ id: req.param.id}, function(err) {
+    res.redirect( '/dashboard' );
+  });
 });
 
 module.exports = router;
