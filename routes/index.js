@@ -182,32 +182,25 @@ router.get('/delete/:id', function(req, res) {
   });
 });
 
-/* POST Update Objects */
+/* GET Update Objects */
 router.get('/update/:id', function(req, res) {
-  parseName = function(name) {
-    var index = name.indexOf(" ");
-    name = name.substring(0, index);
-    return name;
-  };
-
-  req.db.objs.find().toArray(function (error, objs) {
-    if(error) return next(error);
+  Obj.findById(req.params.id, function (error, obj) {
     res.render('update', {
-      title: 'Dashboard',
+      title: 'Update Object',
       //need to fix this if there is nobody logged in
-      userName: parseName(req.user.name),
-      current: req.params.id,
-      objs: objs || []
+      obj: obj
     });
   });
 });
 
-router.post('/update/:id', function(req, res) {
-  req.db.objs.update({_id: req.params.id},
-                     {$set: {location: req.body.update}},
-                      function(err, result, next) {
-    if(error) return next(error);
-    res.redirect('/dashboard');
+/* POST Update Objects */
+router.post('/update/:id', function(req, res, next) {
+  Obj.findById(req.params.id, function (error, obj) {
+    obj.location = req.body.locationObj
+    obj.save(function (err, obj, count) {
+      if (err) return next(err);
+      res.redirect('/dashboard');
+    });
   });
 });
 
