@@ -160,22 +160,6 @@ router.post('/add', function(req, res) {
               }
             });
           }
-          // for(x=0; x<users.length; x++) {
-          //   twilio.sendSms({
-          //     to: '+1' + users[x].phoneNumber,
-          //     from: '+13472235148',
-          //     body: req.user + 'has just moved ' + nameObj + 'to ' +locationObj
-          //   }, function(error, message) {
-          //     if (!error) {
-          //       console.log('Success! The SID for this SMS message is:');
-          //       console.log(message.sid);
-          //       console.log('Message sent on:');
-          //       console.log(message.dateCreated);
-          //     } else {
-          //       console.log('Oops! There was an error.');
-          //     }
-          //   });  
-          // }
     		  res.redirect('/dashboard');
     	});
       }
@@ -189,12 +173,41 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-/* DELETE Objects */
+/* GET Delete Objects */
 router.get('/delete/:id', function(req, res) {
   Obj.findById(req.params.id, function (error, obj) {
     obj.remove(function(error, obj) {
       res.redirect('/dashboard');
     });
+  });
+});
+
+/* POST Update Objects */
+router.get('/update/:id', function(req, res) {
+  parseName = function(name) {
+    var index = name.indexOf(" ");
+    name = name.substring(0, index);
+    return name;
+  };
+
+  req.db.objs.find().toArray(function (error, objs) {
+    if(error) return next(error);
+    res.render('update', {
+      title: 'Dashboard',
+      //need to fix this if there is nobody logged in
+      userName: parseName(req.user.name),
+      current: req.params.id,
+      objs: objs || []
+    });
+  });
+});
+
+router.post('/update/:id', function(req, res) {
+  req.db.objs.update({_id: req.params.id},
+                     {$set: {location: req.body.update}},
+                      function(err, result, next) {
+    if(error) return next(error);
+    res.redirect('/dashboard');
   });
 });
 

@@ -65,7 +65,7 @@ block content
                 td #{obj.location}
                 td #{obj.user}
                 td
-                  button.btn.btn-primary.btn-xs.edit-delete Update
+                  a.button.btn.btn-primary.btn-xs.edit-delete(href='/update/#{obj._id}') Update
                   p.edit-delete / 
                   a.button.btn.btn-danger.btn-xs.edit-delete(href='/delete/#{obj._id}') Delete
   // About
