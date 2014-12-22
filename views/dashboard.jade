@@ -81,76 +81,76 @@ block content
             | .
       // /.row
     // /.container
-  // Services
-  // The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/
-  section#services.services.bg-primary
-    .container
-      .row.text-center
-        .col-lg-10.col-lg-offset-1
-          h2 Our Services
-          |                     
-          hr.small
-          |                     
-          .row
-            .col-md-3.col-sm-6
-              .service-item
-                span.fa-stack.fa-4x
-                  i.fa.fa-circle.fa-stack-2x
-                  |                                 
-                  i.fa.fa-cloud.fa-stack-1x.text-primary
-                |                                 
-                h4
-                  strong Service Name
-                |                                 
-                p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                |                                 
-                a.btn.btn-light(href='#') Learn More
-            |                         
-            .col-md-3.col-sm-6
-              .service-item
-                span.fa-stack.fa-4x
-                  i.fa.fa-circle.fa-stack-2x
-                  |                                 
-                  i.fa.fa-compass.fa-stack-1x.text-primary
-                |                                 
-                h4
-                  strong Service Name
-                |                                 
-                p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                |                                 
-                a.btn.btn-light(href='#') Learn More
-            |                         
-            .col-md-3.col-sm-6
-              .service-item
-                span.fa-stack.fa-4x
-                  i.fa.fa-circle.fa-stack-2x
-                  |                                 
-                  i.fa.fa-flask.fa-stack-1x.text-primary
-                |                                 
-                h4
-                  strong Service Name
-                |                                 
-                p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                |                                 
-                a.btn.btn-light(href='#') Learn More
-            |                         
-            .col-md-3.col-sm-6
-              .service-item
-                span.fa-stack.fa-4x
-                  i.fa.fa-circle.fa-stack-2x
-                  |                                 
-                  i.fa.fa-shield.fa-stack-1x.text-primary
-                |                                 
-                h4
-                  strong Service Name
-                |                                 
-                p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                |                                 
-                a.btn.btn-light(href='#') Learn More
-          // /.row (nested)
-        // /.col-lg-10
-      // /.row
-    // /.container
+  //- // Services
+  //- // The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/
+  //- section#services.services.bg-primary
+  //-   .container
+  //-     .row.text-center
+  //-       .col-lg-10.col-lg-offset-1
+  //-         h2 Our Services
+  //-         |                     
+  //-         hr.small
+  //-         |                     
+  //-         .row
+  //-           .col-md-3.col-sm-6
+  //-             .service-item
+  //-               span.fa-stack.fa-4x
+  //-                 i.fa.fa-circle.fa-stack-2x
+  //-                 |                                 
+  //-                 i.fa.fa-cloud.fa-stack-1x.text-primary
+  //-               |                                 
+  //-               h4
+  //-                 strong Service Name
+  //-               |                                 
+  //-               p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  //-               |                                 
+  //-               a.btn.btn-light(href='#') Learn More
+  //-           |                         
+  //-           .col-md-3.col-sm-6
+  //-             .service-item
+  //-               span.fa-stack.fa-4x
+  //-                 i.fa.fa-circle.fa-stack-2x
+  //-                 |                                 
+  //-                 i.fa.fa-compass.fa-stack-1x.text-primary
+  //-               |                                 
+  //-               h4
+  //-                 strong Service Name
+  //-               |                                 
+  //-               p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  //-               |                                 
+  //-               a.btn.btn-light(href='#') Learn More
+  //-           |                         
+  //-           .col-md-3.col-sm-6
+  //-             .service-item
+  //-               span.fa-stack.fa-4x
+  //-                 i.fa.fa-circle.fa-stack-2x
+  //-                 |                                 
+  //-                 i.fa.fa-flask.fa-stack-1x.text-primary
+  //-               |                                 
+  //-               h4
+  //-                 strong Service Name
+  //-               |                                 
+  //-               p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  //-               |                                 
+  //-               a.btn.btn-light(href='#') Learn More
+  //-           |                         
+  //-           .col-md-3.col-sm-6
+  //-             .service-item
+  //-               span.fa-stack.fa-4x
+  //-                 i.fa.fa-circle.fa-stack-2x
+  //-                 |                                 
+  //-                 i.fa.fa-shield.fa-stack-1x.text-primary
+  //-               |                                 
+  //-               h4
+  //-                 strong Service Name
+  //-               |                                 
+  //-               p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  //-               |                                 
+  //-               a.btn.btn-light(href='#') Learn More
+  //-         // /.row (nested)
+  //-       // /.col-lg-10
+  //-     // /.row
+  //-   // /.container
   footer
     .container
       .row
@@ -191,34 +191,3 @@ block content
           hr.small
           |                     
           p.text-muted Copyright &copy; Your Website 2014
-  // jQuery
-  script(src='js/jquery.js')
-  // Bootstrap Core JavaScript
-  script(src='js/bootstrap.min.js')
-  // Custom Theme JavaScript
-  script.
-    // Closes the sidebar menu
-    $("#menu-close").click(function(e) {
-    e.preventDefault();
-    $("#sidebar-wrapper").toggleClass("active");
-    });
-    // Opens the sidebar menu
-    $("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#sidebar-wrapper").toggleClass("active");
-    });
-    // Scrolls to the selected menu item on the page
-    $(function() {
-    $('a[href*=#]:not([href=#])').click(function() {
-    if (location.pathname.replace(/^\\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
-    var target = $(this.hash);
-    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-    if (target.length) {
-    $('html,body').animate({
-    scrollTop: target.offset().top
-    }, 1000);
-    return false;
-    }
-    }
-    });
-    });

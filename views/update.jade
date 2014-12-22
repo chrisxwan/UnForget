@@ -1,0 +1,88 @@
+extends updatelayout
+block content
+  //- // Navigation
+  //- a#menu-toggle.btn.btn-dark.btn-lg.toggle(href='#')
+  //-   i.fa.fa-bars
+  //- |     
+  //- nav#sidebar-wrapper
+  //-   ul.sidebar-nav
+  //-     a#menu-close.btn.btn-light.btn-lg.pull-right.toggle(href='#')
+  //-       i.fa.fa-times
+  //-     |             
+  //-     li.sidebar-brand
+  //-       a(href='#top') UnForget
+  //-     |             
+  //-     li
+  //-       a(href='#top') Home
+  //-     |             
+  //-     li
+  //-       a(href='#about') About
+  //-     |             
+  //-     li
+  //-       a(href='#services') Services
+  //-     |             
+  //-     li
+  //-       a(href='#portfolio') Portfolio
+  //-     |             
+  //-     li
+  //-       a(href='#contact') Contact
+  // Header
+  header#top.header
+      nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+        .container-fluid
+            .navbar-header
+              a.navbar-brand(href='/') Unforget
+            a.navbar-text.navbar-right.navbar-link#navbar-logout(href='/logout') Logout
+      h1 UnForget 
+      h3 Update Object
+      #form.col-md-offset-5  
+        form.form-horizontal(name="add", method="post",action="/update/#{obj._id}" role='form')
+          .form-group
+            .col-md-4
+              input#disabledInput.form-control(type="text", placeholder='#{obj.name}', name="nameObj" disabled)
+          .form-group
+            .col-md-4
+              input.form-control(type="text", placeholder="New Location", name="locationObj")
+          .form-group
+            .col-md-4
+               button.btn.btn-default(type="submit") submit
+  footer
+    .container
+      .row
+        .col-lg-10.col-lg-offset-1.text-center
+          h4
+            strong Start Bootstrap
+          |                     
+          p
+            | 3481 Melrose Place
+            br
+            | Beverly Hills, CA 90210
+          |                     
+          ul.list-unstyled
+            li
+              i.fa.fa-phone.fa-fw
+              |  (123) 456-7890
+            |                         
+            li
+              i.fa.fa-envelope-o.fa-fw
+              |   
+              a(href='mailto:name@example.com') name@example.com
+          |                     
+          br
+          |                     
+          ul.list-inline
+            li
+              a(href='#')
+                i.fa.fa-facebook.fa-fw.fa-3x
+            |                         
+            li
+              a(href='#')
+                i.fa.fa-twitter.fa-fw.fa-3x
+            |                         
+            li
+              a(href='#')
+                i.fa.fa-dribbble.fa-fw.fa-3x
+          |                     
+          hr.small
+          |                     
+          p.text-muted Copyright &copy; Your Website 2014
