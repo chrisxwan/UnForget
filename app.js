@@ -89,7 +89,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-
+app.use(favicon(__dirname + '/public/img/favicon.ico'));
 
 
 app.use('/', routes);
