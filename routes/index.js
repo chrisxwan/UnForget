@@ -106,12 +106,17 @@ router.get('/dashboard', function(req, res) {
 
 	req.db.objs.find().toArray(function (error, objs) {
 		if(error) return next(error);
-		res.render('dashboard', {
-			title: 'Dashboard',
-      //need to fix this if there is nobody logged in
-      userName: parseName(req.user.name),
-			objs: objs || []
-		});
+    if(req.user) {
+  		res.render('dashboard', {
+  			title: 'Dashboard',
+        //need to fix this if there is nobody logged in
+        userName: parseName(req.user.name),
+  			objs: objs || []
+		  });
+    }
+    else {
+      res.redirect('/');
+    }
 	});
 });
 
