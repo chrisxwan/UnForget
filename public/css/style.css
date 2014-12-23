@@ -14,6 +14,10 @@ h3 {
 	color: white;
 }
 
+.not-front{
+	margin-top: 35px;
+}
+
 #form{
 	text-align: center;
 	margin-top: 50px;
@@ -32,9 +36,12 @@ h3 {
 }
 
 #signup-form {
-	margin-top:30px;
+	margin-top:10px;
 	text-align: center;
-	/*background-color: white;*/
+	font-family: "Montserrat", sans-serif;
+/*	background-color: #f3f2ea;
+	padding: 10px;
+	border-radius: 4px;*/
 }
 
 #signupButton {
@@ -48,7 +55,6 @@ h3 {
 
 #front-button{
 	margin-top:10px;
-	font-family: Tahoma, Geneva, sans-serif;
 }
 
 
@@ -71,8 +77,8 @@ h3 {
 	margin-right: 5px;
 }
 
-a.button {
-	font-family: "Montserrat", Helvetica, Arial, sans-serif;
+.btn {
+	font-family: "Montserrat", sans-serif;
 	text-transform: uppercase;
 	color: #ffffff;
     background: rgba(39, 174, 96, 0.16);
@@ -93,7 +99,31 @@ a.button {
     transition: all 0.4s ease;
 }
 
-a.button:hover {
+#dash{
+	font-family: "Montserrat", sans-serif;
+	text-transform: uppercase;
+	color: #ffffff;
+    background: rgba(39, 174, 96, 0.16);
+    border: 1px solid white;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0 auto;
+    cursor: pointer;
+    font-size: 0.9em;
+    width: 240px;
+    height: 30px;
+    text-decoration: none; 
+    outline: none;
+    -moz-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+
+.btn:hover, #dash:hover {
     background-color: white;
+    color: black;
 /*    border: 1px rgba(39, 174, 96, 0.8);*/
 }

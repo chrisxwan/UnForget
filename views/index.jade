@@ -1,71 +1,14 @@
 extends layout
 block content
-  //- // Navigation
-  //- a#menu-toggle.btn.btn-dark.btn-lg.toggle(href='#')
-  //-   i.fa.fa-bars
-  //- |     
-  //- nav#sidebar-wrapper
-  //-   ul.sidebar-nav
-  //-     a#menu-close.btn.btn-light.btn-lg.pull-right.toggle(href='#')
-  //-       i.fa.fa-times
-  //-     |             
-  //-     li.sidebar-brand
-  //-       a(href='#top') UnForget
-  //-     |             
-  //-     li
-  //-       a(href='#top') Home
-  //-     |             
-  //-     li
-  //-       a(href='#about') About
-  //-     |             
-  //-     li
-  //-       a(href='#services') Services
-  //-     |             
-  //-     li
-  //-       a(href='#portfolio') Portfolio
-  //-     |             
-  //-     li
-  //-       a(href='#contact') Contact
   // Header
   header#top.header
       img#logo(src='/img/logo.png')
       h1 UNFORGET
       h3 keep track of your shit.
       .buttonHolder
-        a.button#front-button.btn.btn-default(href='/login') LOGIN
+        a.button.big-button.btn.btn-default#front-button(style="font-family: 'Montserrat', serif;" href='/login') LOGIN
         br
-        a.button#front-button.btn.btn-default(href='/signup') SIGN UP
-      //- #form.col-md-offset-5  
-      //-   form.form-horizontal(name="add",method="post",action="/add" role='form')
-      //-     .form-group
-      //-       .col-md-4
-      //-         input#nameObj.form-control(type="text", placeholder="Object Name", name="nameObj")
-      //-     .form-group
-      //-       .col-md-4
-      //-         input#locationObj.form-control(type="text", placeholder="Location", name="locationObj")
-      //-     .form-group
-      //-       .col-md-4
-      //-         input#user.form-control(type="text", placeholder="Who are you?", name="user")
-      //-     .form-group
-      //-       .col-md-4
-      //-          button.btn.btn-default(type="submit") submit
-      //- br
-      //- div.table-responsive#format
-      //-   table.table.table-hover#table
-      //-     thead
-      //-       tr 
-      //-         th Object
-      //-         th Last Placed 
-      //-         th Last Touched
-      //-         th Delete?
-      //-     tbody
-      //-       each obj in objs
-      //-         tr
-      //-           td #{obj.name}
-      //-           td #{obj.location}
-      //-           td #{obj.user}
-      //-           td
-      //-             button.btn.btn-danger.btn-xs Delete
+        a.button.big-button.btn.btn-default#front-button(style="font-family: 'Montserrat', serif;" href='/signup') SIGN UP
   // About
   section#about.about
     .container

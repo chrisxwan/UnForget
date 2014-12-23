@@ -3,7 +3,7 @@ extends layout
 block content
   header#top.header
     img#logo(src='/img/logo.png')
-    h1 SIGN UP
+    h1.not-front SIGN UP
     #signup-form.col-md-offset-4
       form#signupFormHelper.form-horizontal(method='POST', action='/signup')
         input(type='hidden', name='_csrf', value=_csrf)
@@ -15,15 +15,10 @@ block content
             input.form-control(type='email', name='email', id='email', placeholder='Email')
         .form-group
           .col-sm-6
-            input.form-control(type='tel', name='phoneNumber', id='phoneNumber', placeholder='Phone Number')
-        .form-group
-          .col-sm-6
             input.form-control(type='password', name='password', id='password', placeholder='Password')
         .form-group
           .col-sm-6
             input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password')
         .form-group
           .col-sm-7
-            button.btn.btn-success#signupButton(type='submit')
-              span.ion-person-add
-              | Signup
+            button.btn.btn-success#signupButton(type='submit') Signup
