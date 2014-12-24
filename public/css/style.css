@@ -77,13 +77,10 @@ h3 {
 	margin-right: 5px;
 }
 
-.btn {
-	font-family: "Montserrat", sans-serif;
-	text-transform: uppercase;
+.styled-button {
 	color: #ffffff;
     background: rgba(39, 174, 96, 0.16);
     border: 1px solid white;
-    border-radius: 4px;
     display: inline-block;
     margin: 0 auto;
     cursor: pointer;
@@ -92,20 +89,23 @@ h3 {
     height: 40px;
     text-decoration: none; 
     outline: none;
+}
+
+.btn{
+	font-family: "Montserrat", sans-serif;
+	text-transform: uppercase;
+	border-radius: 4px;
     -moz-transition: all 0.4s ease;
     -ms-transition: all 0.4s ease;
     -webkit-transition: all 0.4s ease;
     -o-transition: all 0.4s ease;
-    transition: all 0.4s ease;
+    transition: all 0.4s ease;	
 }
 
 #dash{
-	font-family: "Montserrat", sans-serif;
-	text-transform: uppercase;
 	color: #ffffff;
     background: rgba(39, 174, 96, 0.16);
     border: 1px solid white;
-    border-radius: 4px;
     display: inline-block;
     margin: 0 auto;
     cursor: pointer;
@@ -114,11 +114,6 @@ h3 {
     height: 30px;
     text-decoration: none; 
     outline: none;
-    -moz-transition: all 0.4s ease;
-    -ms-transition: all 0.4s ease;
-    -webkit-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    transition: all 0.4s ease;
 }
 
 

@@ -20,6 +20,7 @@
         "connect-mongo": "^0.4.1",
         "lodash": "^2.4.1",
         "lusca": "^1.0.2",
+        "mandrill-api": "^1.0.0",
         "method-override": "^2.3.0",
         "mongoose": "^3.8.16",
         "nodemailer": "^1.3.0",

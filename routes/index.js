@@ -10,6 +10,8 @@ var _ = require('lodash');
 var async = require('async');
 var twilio = require('twilio')(secrets.twilio.sid, secrets.twilio.token);
 var nodemailer = require('nodemailer');
+var mandrill = require('mandrill-api/mandrill');
+var mandrill_client = new mandrill.Mandrill(secrets.mandrill.password);
 
 
 /* GET home page. */
@@ -141,32 +143,50 @@ router.post('/add', function(req, res) {
     	else {
         req.db.users.find().toArray(function (error, users, next) {
           if(error) return next(error);
-
-          var transporter = nodemailer.createTransport({
-            service: 'Mandrill',
-            auth: {
-              user: secrets.mandrill.user,
-              pass: secrets.mandrill.password
-            }
-          });
-          for(x=0; x<users.length; x++) {
-            var mailOptions = {
-              to: users[x].email,
-              from: 'robot@unforget.com',
-              subject: 'your shit has been moved.',
-              text: req.user.name + ' has just moved ' + nameObj + ' to ' +locationObj
+          for(var x=0; x<users.length; x++) {
+            var template_name = "unforget-v1";
+            var template_content = [{
+              'name': 'preview',
+              'content': 'A new object has been registered!'
+            },
+            {
+              'name': 'body',
+              'content': req.user.name + ' wants to keep track of ' + req.body.nameObj
+            },
+            {
+              'name': 'description',
+              'content': 'If you happen to move ' + req.user.name + "'s " + req.body.nameObj + ", please update it in the group! Thanks (:"
+            }];
+            var message = {
+                "subject": "A new object has been registered!",
+                "from_email": "robot@unforget.com",
+                "from_name": "UnForget",
+                "to": [{
+                        "email": users[x].email,
+                    }],
+                "important": true,
+                "track_opens": true,
+                "track_clicks": true,
+                "preserve_recipients": true,
+                "view_content_link": null,
+                "tracking_domain": null,
+                "signing_domain": null,
+                "return_path_domain": null,
+                "merge": true,
+                "merge_language": "mailchimp"
             };
-            transporter.sendMail(mailOptions,function(err, info) {
-              if(error) {
-                console.log(error);
-              }
-              else {
-                console.log('Message sent: ' + info.response);
-              }
+            var async = false;
+            var ip_pool = "Main Pool";
+            mandrill_client.messages.sendTemplate({"template_name": template_name, "template_content": template_content, "message": message, "async": async, "ip_pool": ip_pool}, function(result) {
+                console.log(result);
+            }, function(e) {
+                // Mandrill returns the error as an object with name and message keys
+                console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+                // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
             });
           }
-    		  res.redirect('/dashboard');
-    	});
+        });
+		  res.redirect('/dashboard');
       }
     });
     
