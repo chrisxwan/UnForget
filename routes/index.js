@@ -224,6 +224,51 @@ router.post('/update/:id', function(req, res, next) {
     obj.location = req.body.locationObj
     obj.save(function (err, obj, count) {
       if (err) return next(err);
+      req.db.users.find().toArray(function (error, users, next) {
+          if(error) return next(error);
+          for(var x=0; x<users.length; x++) {
+            var template_name = "unforget-v1";
+            var template_content = [{
+              'name': 'preview',
+              'content': 'An object has been moved!'
+            },
+            {
+              'name': 'body',
+              'content': req.user.name + ' has moved ' + obj.name + ' to ' + req.body.locationObj + '!'
+            },
+            {
+              'name': 'description',
+              'content': 'If you happen to move it again, please update it in the group! Thanks (:'
+            }];
+            var message = {
+                "subject": "An object has been moved!",
+                "from_email": "robot@unforget.com",
+                "from_name": "UnForget",
+                "to": [{
+                        "email": users[x].email,
+                    }],
+                "important": true,
+                "track_opens": true,
+                "track_clicks": true,
+                "preserve_recipients": true,
+                "view_content_link": null,
+                "tracking_domain": null,
+                "signing_domain": null,
+                "return_path_domain": null,
+                "merge": true,
+                "merge_language": "mailchimp"
+            };
+            var async = false;
+            var ip_pool = "Main Pool";
+            mandrill_client.messages.sendTemplate({"template_name": template_name, "template_content": template_content, "message": message, "async": async, "ip_pool": ip_pool}, function(result) {
+                console.log(result);
+            }, function(e) {
+                // Mandrill returns the error as an object with name and message keys
+                console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+                // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+            });
+          }
+        });
       res.redirect('/dashboard');
     });
   });

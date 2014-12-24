@@ -39,7 +39,7 @@ block content
         form.form-horizontal(name="add", method="post",action="/update/#{obj._id}" role='form')
           .form-group
             .col-md-4
-              input#disabledInput.form-control(type="text", placeholder='#{obj.name}', name="nameObj" disabled)
+              input#disabledInput.form-control(type="text", placeholder='#{obj.name}', name="nameObj", value='#{obj.name}' disabled)
           .form-group
             .col-md-4
               input.form-control(type="text", placeholder="New Location", name="locationObj")
