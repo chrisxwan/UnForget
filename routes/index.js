@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Obj = mongoose.model('Obj');
 var User = mongoose.model('User');
+var Group = mongoose.model('Group');
 var secrets = require('../config/secrets');
 var crypto = require('crypto');
 var passport = require('passport');

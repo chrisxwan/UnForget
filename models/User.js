@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
+require('./group');
+var Group = mongoose.model('Group');
 
 var userSchema = new mongoose.Schema({
   id: mongoose.Schema.ObjectId,
@@ -11,6 +13,7 @@ var userSchema = new mongoose.Schema({
 
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  groups: [Group]
 });
 
 /**

@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Obj = mongoose.model('Obj');
 var User = mongoose.model('User');
+var Group = mongoose.model('Group');
 var secrets = require('../config/secrets');
 var crypto = require('crypto');
 var passport = require('passport');
@@ -58,7 +59,7 @@ router.post('/signup', function(req, res, next) {
 
 /* GET Login page. */
 router.get('/login', function(req, res) {
-  if (req.user) return res.redirect('/dashboard');
+  if (req.user) return res.redirect('/dashboard/' + req.user._id);
 	res.render('login', {
 		title: 'Login'
 	});
@@ -113,6 +114,27 @@ router.get('/dashboard', function(req, res) {
     }
 	});
 });
+
+/* GET Customized Dashboard */
+router.get('/dashboard/:id', function(req, res) {
+  parseName = function(name) {
+    var index = name.indexOf(" ");
+    name = name.substring(0, index);
+    return name;
+  };
+
+  if(req.user) {
+    res.render('newdash', {
+      title: 'Dashboard',
+      userName: parseName(req.user.name),
+      groups: req.user.groups
+    });
+  }
+   else {
+    res.redirect('/');
+  }
+});
+
 
 /* GET Logout */
 router.get('/logout', function(req, res) {

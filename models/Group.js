@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Obj = mongoose.model('Obj');
-var User = mongoose.model('User');
+// require('./user');
+// var Obj = mongoose.model('Obj');
+// var User = mongoose.model('User');
 
 var groupSchema = new Schema({
   id: mongoose.Schema.ObjectId,
