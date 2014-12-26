@@ -109,7 +109,7 @@ router.post('/new-group', function(req, res, next) {
 
   var userEmails = parseUsers(req, res);
   var users = [];
-  users[0] = req.user.name;
+  users[0] = req.user._id;
   // for(var x=0; x<userEmails.length; x++) {
   //   users[x+1] = req.db.users.find({email: userEmails[x]}).name
   // }
@@ -124,11 +124,15 @@ router.post('/new-group', function(req, res, next) {
     if(err) return next(err);
   });
   for(var x=0; x<users.length; x++) {
-    req.db.users.find({name: users[x]}, function (error, user) {
-      user.groups[0] = newGroup
-      // user.save(function (err) {
-      //   if(err) return (err);
-      // });
+    User.findByIdAndUpdate(users[x], 
+                        { $push: { groups: newGroup._id } },
+                        function (error, user) {
+                          if (error) return (error);
+                          user.save(function(err){
+                            if(err) return (err);
+                          });
+
+
     });
   }
   res.redirect('/dashboard/' + req.user._id);

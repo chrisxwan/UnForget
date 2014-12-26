@@ -8,8 +8,8 @@ var groupSchema = new Schema({
   id: mongoose.Schema.ObjectId,
   name: String,
   description: String,
-  users: [ {type: String, ref: 'User'}],
-  objs: [ {type: String, ref: 'Obj'}]
+  users: [ {type: mongoose.Schema.ObjectId, ref: 'User'}],
+  objs: [ {type: mongoose.Schema.ObjectId, ref: 'Obj'}]
 });
 
 
