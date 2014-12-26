@@ -7,8 +7,9 @@ var Schema = mongoose.Schema;
 var groupSchema = new Schema({
   id: mongoose.Schema.ObjectId,
   name: String,
-  users: [ {type: mongoose.Schema.ObjectId, ref: 'User'}],
-  objs: [ {type: mongoose.Schema.ObjectId, ref: 'Obj'}]
+  description: String,
+  users: [ {type: String, ref: 'User'}],
+  objs: [ {type: String, ref: 'Obj'}]
 });
 
 

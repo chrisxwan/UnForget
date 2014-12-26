@@ -91,6 +91,49 @@ router.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
+/* GET New Group page. */
+router.get('/new-group', function(req, res) {
+  res.render('newgroup', {
+    title: 'Create New Group'
+  });
+});
+
+/* POST New Group page. */
+router.post('/new-group', function(req, res, next) {
+  var parseUsers = function(req, res) {
+    var user_emails = req.body.members;
+    user_emails = user_emails.replace(" ", ''); // remove whitespace
+    var user_array = user_emails.split(',');
+    return user_array
+  };
+
+  var userEmails = parseUsers(req, res);
+  var users = [];
+  users[0] = req.user.name;
+  // for(var x=0; x<userEmails.length; x++) {
+  //   users[x+1] = req.db.users.find({email: userEmails[x]}).name
+  // }
+
+  var newGroup = new Group({
+    name: req.body.name,
+    description: req.body.description,
+    users: users
+  });
+
+  newGroup.save(function(err) {
+    if(err) return next(err);
+  });
+  for(var x=0; x<users.length; x++) {
+    req.db.users.find({name: users[x]}, function (error, user) {
+      user.groups[0] = newGroup
+      // user.save(function (err) {
+      //   if(err) return (err);
+      // });
+    });
+  }
+  res.redirect('/dashboard/' + req.user._id);
+});
+
 /* GET Dashboard page. */
 router.get('/dashboard', function(req, res) {
   parseName = function(name) {
