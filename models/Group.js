@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // require('./user');
-// var Obj = mongoose.model('Obj');
+var Obj = mongoose.model('Obj');
 // var User = mongoose.model('User');
 
 var groupSchema = new Schema({
@@ -9,7 +9,7 @@ var groupSchema = new Schema({
   name: String,
   description: String,
   users: [ {type: mongoose.Schema.ObjectId, ref: 'User'}],
-  objs: [ {type: mongoose.Schema.ObjectId, ref: 'Obj'}]
+  objs: [Obj]
 });
 
 

@@ -169,16 +169,13 @@ router.get('/dashboard/:id', function(req, res) {
     name = name.substring(0, index);
     return name;
   };
-  // var groupNames = [];
-  // for(var x=0; x<req.user.groups.length; x++) {
-  //   groupNames[x] = Group.findById(req.user.groups[x]).name;
-  // }
 
   if(req.user) {
     res.render('newdash', {
       title: 'Dashboard',
       userName: parseName(req.user.name),
-      groups: req.user.groups
+      groups: req.user.groups,
+      id: req.user._id
     });
   }
    else {
@@ -186,6 +183,29 @@ router.get('/dashboard/:id', function(req, res) {
   }
 });
 
+/* GET Group Dashboard */
+router.get('/dashboard/:name/:id', function(req, res) {
+  parseName = function(name) {
+    var index = name.indexOf(" ");
+    name = name.substring(0, index);
+    return name;
+  };
+
+  Group.find({name: req.params.name}, function(error, group) {
+    var objs = group.objs;
+    if(req.user) {
+      res.render('groupdash', {
+        title: req.params.name,
+        //need to fix this if there is nobody logged in
+        userName: parseName(req.user.name),
+        objs: objs || []
+      });
+    }
+    else {
+      res.redirect('/');
+    }
+  });
+});
 
 /* GET Logout */
 router.get('/logout', function(req, res) {
