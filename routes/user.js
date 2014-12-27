@@ -125,7 +125,7 @@ router.post('/new-group', function(req, res, next) {
   });
   for(var x=0; x<users.length; x++) {
     User.findByIdAndUpdate(users[x], 
-                        { $push: { groups: newGroup._id } },
+                        { $push: { groups: newGroup.name } },
                         function (error, user) {
                           if (error) return (error);
                           user.save(function(err){
@@ -169,6 +169,10 @@ router.get('/dashboard/:id', function(req, res) {
     name = name.substring(0, index);
     return name;
   };
+  // var groupNames = [];
+  // for(var x=0; x<req.user.groups.length; x++) {
+  //   groupNames[x] = Group.findById(req.user.groups[x]).name;
+  // }
 
   if(req.user) {
     res.render('newdash', {

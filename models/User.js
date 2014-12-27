@@ -13,7 +13,7 @@ var userSchema = new mongoose.Schema({
 
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  groups: [{type: mongoose.Schema.ObjectId, ref: 'Group'}]
+  groups: [{type: String, ref: 'Group'}]
 });
 
 /**
