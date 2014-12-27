@@ -1,6 +1,7 @@
 require('./models/obj');
-require('./models/group');
 require('./models/user');
+require('./models/group');
+
 
 
 

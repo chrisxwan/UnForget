@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST to Add Object */
-router.post('/add', function(req, res) {
+router.post('/dashboard/:name/:id', function(req, res, next) {
 
     // Get our form values. These rely on the "name" attributes
     var nameObj = req.body.nameObj;
@@ -32,7 +32,8 @@ router.post('/add', function(req, res) {
     var newObj = new Obj({
     	name: nameObj,
     	location: locationObj,
-    	user: req.user.name
+    	user: req.user.name,
+      group: req.params.name
     });
 
     newObj.save(function (err) {
@@ -40,7 +41,8 @@ router.post('/add', function(req, res) {
     		res.send("There was a problem adding the info to MongoDB.");
     	}
     	else {
-        req.db.users.find().toArray(function (error, users, next) {
+        Group.find({name: req.params.name}, function(error, group) {
+          var users = group.users.toArray();
           if(error) return next(error);
           for(var x=0; x<users.length; x++) {
             var template_name = "unforget-v1";
@@ -61,7 +63,7 @@ router.post('/add', function(req, res) {
                 "from_email": "robot@unforget.com",
                 "from_name": "UnForget",
                 "to": [{
-                        "email": users[x].email,
+                        "email": users[x],
                     }],
                 "important": true,
                 "track_opens": true,
@@ -85,7 +87,7 @@ router.post('/add', function(req, res) {
             });
           }
         });
-		  res.redirect('/dashboard');
+		  res.redirect('/dashboard' + req.params.name + '/' + req.params.id);
       }
     });
     

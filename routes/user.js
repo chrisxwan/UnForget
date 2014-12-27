@@ -109,7 +109,7 @@ router.post('/new-group', function(req, res, next) {
 
   var userEmails = parseUsers(req, res);
   var users = [];
-  users[0] = req.user._id;
+  users[0] = req.user.email;
   // for(var x=0; x<userEmails.length; x++) {
   //   users[x+1] = req.db.users.find({email: userEmails[x]}).name
   // }
@@ -124,17 +124,24 @@ router.post('/new-group', function(req, res, next) {
     if(err) return next(err);
   });
   for(var x=0; x<users.length; x++) {
-    User.findByIdAndUpdate(users[x], 
-                        { $push: { groups: newGroup.name } },
-                        function (error, user) {
-                          if (error) return (error);
-                          user.save(function(err){
-                            if(err) return (err);
-                          });
-
-
+    req.db.users.update({email: users[x]}, { $push: { groups: newGroup.name }}, function(error) {
+      if(error) return (error);
     });
   }
+
+
+    // AndModify({
+    //   query: {email: users[x]}, 
+    //   update: { $push: { groups: newGroup.name } }},
+    //   function (error, user) {
+    //     if (error) return (error);
+    //     user.save(function(err){
+    //       if(err) return (err);
+    //     });
+    //   });
+
+
+    // }
   res.redirect('/dashboard/' + req.user._id);
 });
 
@@ -196,6 +203,7 @@ router.get('/dashboard/:name/:id', function(req, res) {
     if(req.user) {
       res.render('groupdash', {
         title: req.params.name,
+        id: req.user._id,
         //need to fix this if there is nobody logged in
         userName: parseName(req.user.name),
         objs: objs || []
@@ -206,6 +214,7 @@ router.get('/dashboard/:name/:id', function(req, res) {
     }
   });
 });
+
 
 /* GET Logout */
 router.get('/logout', function(req, res) {
