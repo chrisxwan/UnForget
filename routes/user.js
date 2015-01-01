@@ -198,8 +198,18 @@ router.get('/dashboard/:name/:id', function(req, res) {
     return name;
   };
 
-  Group.find({name: req.params.name}, function(error, group) {
-    var objs = group.objs;
+  req.db.groups.findOne({"name": req.params.name}, function (error, group) {
+    if(error) return (error);
+    console.log(group.objs);
+    var objNames = group.objs;
+    var objs = [];
+    for(var x=0; x<objNames.length; x++) {
+      req.db.objs.find({"name": objNames[x]}, function (error, obj) {
+        if(error) return (error);
+        objs[x] = obj;
+        console.log(objs[x]);
+      });
+    }
     if(req.user) {
       res.render('groupdash', {
         title: req.params.name,

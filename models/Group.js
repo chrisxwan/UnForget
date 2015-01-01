@@ -9,7 +9,7 @@ var groupSchema = new Schema({
   name: String,
   description: String,
   users: [ {type: String, ref: 'User'}],
-  objs: [Obj]
+  objs: [{type: String, ref: 'Obj'}]
 });
 
 
