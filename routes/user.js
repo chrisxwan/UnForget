@@ -13,6 +13,7 @@ var twilio = require('twilio')(secrets.twilio.sid, secrets.twilio.token);
 var nodemailer = require('nodemailer');
 var mandrill = require('mandrill-api/mandrill');
 var mandrill_client = new mandrill.Mandrill(secrets.mandrill.password);
+var async = require('async');
 
 /* GET Signup page. */
 router.get('/signup', function(req, res) {
@@ -154,6 +155,7 @@ router.get('/dashboard', function(req, res) {
   };
 
 	req.db.objs.find().toArray(function (error, objs) {
+    console.log(objs);
 		if(error) return next(error);
     if(req.user) {
   		res.render('dashboard', {
@@ -202,21 +204,40 @@ router.get('/dashboard/:name/:id', function(req, res) {
     if(error) return (error);
     console.log(group.objs);
     var objNames = group.objs;
-    var objs = [];
-    for(var x=0; x<objNames.length; x++) {
-      req.db.objs.find({"name": objNames[x]}, function (error, obj) {
+    // var getObjs = function() {
+    //   var objs = [];
+    //   for(var x=0; x<objNames.length; x++) {
+    //     req.db.objs.findOne({"name": objNames[x]}, function (error, obj) {
+    //       if(error) return (error);
+    //       objs.push(obj);
+    //     });
+    //   }
+    //   console.log(objs);
+    //   return objs;
+    // }
+    var getObjs = function() {
+      var objs = [];
+      async.each(objNames, function(objName, callback) {
+        req.db.objs.findOne({'name': objName}, function(error, obj) {
+          if(error) return (error);
+          objs.push(obj);
+          callback();
+        });
+      },
+      function(error){
         if(error) return (error);
-        objs[x] = obj;
-        console.log(objs[x]);
+        // console.log(objs);
+        return objs;
       });
     }
+    console.log(getObjs());
     if(req.user) {
       res.render('groupdash', {
         title: req.params.name,
         id: req.user._id,
         //need to fix this if there is nobody logged in
         userName: parseName(req.user.name),
-        objs: objs || []
+        objs: getObjs()
       });
     }
     else {
