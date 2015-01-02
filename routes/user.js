@@ -241,21 +241,7 @@ router.get('/dashboard/:name/:id', function(req, res) {
     });
   });
 });
-//     console.log(objs);
-//     if(req.user) {
-//       res.render('groupdash', {
-//         title: req.params.name,
-//         id: req.user._id,
-//         //need to fix this if there is nobody logged in
-//         userName: parseName(req.user.name),
-//         objs: objs
-//       });
-//     }
-//     else {
-//       res.redirect('/');
-//     }
-//   });
-// });
+
 
 
 /* GET Logout */
