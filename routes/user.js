@@ -215,36 +215,47 @@ router.get('/dashboard/:name/:id', function(req, res) {
     //   console.log(objs);
     //   return objs;
     // }
-    var getObjs = function() {
-      var objs = [];
-      async.each(objNames, function(objName, callback) {
-        req.db.objs.findOne({'name': objName}, function(error, obj) {
-          if(error) return (error);
-          objs.push(obj);
-          callback();
-        });
-      },
-      function(error){
+    var objs = [];
+    async.eachSeries(objNames, function(objName, callback) {
+      req.db.objs.findOne({'name': objName}, function(error, obj) {
         if(error) return (error);
-        // console.log(objs);
-        return objs;
+        objs.push(obj);
+        callback();
       });
-    }
-    console.log(getObjs());
-    if(req.user) {
-      res.render('groupdash', {
-        title: req.params.name,
-        id: req.user._id,
-        //need to fix this if there is nobody logged in
-        userName: parseName(req.user.name),
-        objs: getObjs()
-      });
-    }
-    else {
-      res.redirect('/');
-    }
+    },
+    function(error){
+      if(error) return (error);
+      console.log(objs);
+      if(req.user) {
+        res.render('groupdash', {
+          title: req.params.name,
+          id: req.user._id,
+          //need to fix this if there is nobody logged in
+          userName: parseName(req.user.name),
+          objs: objs
+        });
+      }
+      else {
+        res.redirect('/');
+      }
+    });
   });
 });
+//     console.log(objs);
+//     if(req.user) {
+//       res.render('groupdash', {
+//         title: req.params.name,
+//         id: req.user._id,
+//         //need to fix this if there is nobody logged in
+//         userName: parseName(req.user.name),
+//         objs: objs
+//       });
+//     }
+//     else {
+//       res.redirect('/');
+//     }
+//   });
+// });
 
 
 /* GET Logout */
