@@ -111,24 +111,29 @@ router.get('/delete/:name/:id', function(req, res) {
 
 
 /* GET Update Objects */
-router.get('/update/:id', function(req, res) {
+router.get('/update/:name/:id', function(req, res) {
   Obj.findById(req.params.id, function (error, obj) {
     res.render('update', {
       title: 'Update Object',
       //need to fix this if there is nobody logged in
+      groupName: req.params.name,
       obj: obj
     });
   });
 });
 
 /* POST Update Objects */
-router.post('/update/:id', function(req, res, next) {
+router.post('/update/:name/:id', function(req, res, next) {
   Obj.findById(req.params.id, function (error, obj) {
     obj.location = req.body.locationObj
     obj.save(function (err, obj, count) {
-      if (err) return next(err);
-      req.db.users.find().toArray(function (error, users, next) {
+      if (err) {
+         res.send("There was a problem adding the info to MongoDB.");
+      }
+      else {
+        req.db.groups.findOne({'name': req.params.name}, function(error, grp) {
           if(error) return next(error);
+          var users = grp.users;
           for(var x=0; x<users.length; x++) {
             var template_name = "unforget-v1";
             var template_content = [{
@@ -144,22 +149,22 @@ router.post('/update/:id', function(req, res, next) {
               'content': 'If you happen to move it again, please update it in the group! Thanks (:'
             }];
             var message = {
-                "subject": "An object has been moved!",
-                "from_email": "robot@unforget.com",
-                "from_name": "UnForget",
-                "to": [{
-                        "email": users[x].email,
-                    }],
-                "important": true,
-                "track_opens": true,
-                "track_clicks": true,
-                "preserve_recipients": true,
-                "view_content_link": null,
-                "tracking_domain": null,
-                "signing_domain": null,
-                "return_path_domain": null,
-                "merge": true,
-                "merge_language": "mailchimp"
+              "subject": "An object has been moved!",
+              "from_email": "robot@unforget.com",
+              "from_name": "UnForget",
+              "to": [{
+                      "email": users[x],
+                  }],
+              "important": true,
+              "track_opens": true,
+              "track_clicks": true,
+              "preserve_recipients": true,
+              "view_content_link": null,
+              "tracking_domain": null,
+              "signing_domain": null,
+              "return_path_domain": null,
+              "merge": true,
+              "merge_language": "mailchimp"
             };
             var async = false;
             var ip_pool = "Main Pool";
@@ -172,7 +177,8 @@ router.post('/update/:id', function(req, res, next) {
             });
           }
         });
-      res.redirect('/dashboard');
+      }
+      res.redirect('/dashboard/' + req.params.name + '/' + req.user._id);
     });
   });
 });

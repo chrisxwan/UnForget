@@ -1,4 +1,4 @@
-extends updatelayout
+extends dashlayout
 block content
   // Header
   header#top.header
@@ -10,7 +10,7 @@ block content
       h1 UnForget 
       h3 Update Object
       #form.col-md-offset-5  
-        form.form-horizontal(name="add", method="post",action="/update/#{obj._id}" role='form')
+        form.form-horizontal(name="add", method="post",action="/update/#{groupName}/#{obj._id}" role='form')
           .form-group
             .col-md-4
               input#disabledInput.form-control(type="text", placeholder='#{obj.name}', name="nameObj", value='#{obj.name}' disabled)
