@@ -204,17 +204,6 @@ router.get('/dashboard/:name/:id', function(req, res) {
     if(error) return (error);
     console.log(group.objs);
     var objNames = group.objs;
-    // var getObjs = function() {
-    //   var objs = [];
-    //   for(var x=0; x<objNames.length; x++) {
-    //     req.db.objs.findOne({"name": objNames[x]}, function (error, obj) {
-    //       if(error) return (error);
-    //       objs.push(obj);
-    //     });
-    //   }
-    //   console.log(objs);
-    //   return objs;
-    // }
     var objs = [];
     async.eachSeries(objNames, function(objName, callback) {
       req.db.objs.findOne({'name': objName}, function(error, obj) {
@@ -232,7 +221,7 @@ router.get('/dashboard/:name/:id', function(req, res) {
           id: req.user._id,
           //need to fix this if there is nobody logged in
           userName: parseName(req.user.name),
-          objs: objs
+          objs: objs || []
         });
       }
       else {
