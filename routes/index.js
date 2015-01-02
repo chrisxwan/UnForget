@@ -97,19 +97,10 @@ router.post('/dashboard/:name/:id', function(req, res, next) {
 });
 
 /* GET Delete Objects */
-// router.get('/delete/:name/:id', function(req, res) {
-//   Obj.findById(req.params.id, function (error, obj) {
-//     obj.remove(function(error, obj) {
-//       res.redirect('/dashboard/' + req.params.name + '/' + req.user._id);
-//     });
-//   });
-// });
 router.get('/delete/:name/:id', function(req, res) {
   Obj.findById(req.params.id, function (error, obj) {
-    req.db.groups.findOne({'name': req.params.name}, function(error, group) {
+    req.db.groups.update({name: req.params.name}, { $pull: { objs: obj.name }}, function(error) {
       if(error) return (error);
-      var index = group.objs.indexOf(obj.name);
-      group.objs.splice(index, 1);
     });
     obj.remove(function (error) {
       if(error) return (error);
