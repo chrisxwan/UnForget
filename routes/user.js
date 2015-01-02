@@ -111,9 +111,15 @@ router.post('/new-group', function(req, res, next) {
   var userEmails = parseUsers(req, res);
   var users = [];
   users[0] = req.user.email;
-  // for(var x=0; x<userEmails.length; x++) {
-  //   users[x+1] = req.db.users.find({email: userEmails[x]}).name
-  // }
+  for(var x=0; x<userEmails.length; x++) {
+    req.db.users.findOne({'email': userEmails[x]}, function(error, user) {
+      if(!user) {
+        res.send('There is no user with the email' + userEmails[x]);
+      } else {
+        users.push(user.email);
+      }
+    });
+  }
 
   var newGroup = new Group({
     name: req.body.name,
