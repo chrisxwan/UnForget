@@ -1,0 +1,192 @@
+extends dashlayout
+block content
+  //- // Navigation
+  //- a#menu-toggle.btn.btn-dark.btn-lg.toggle(href='#')
+  //-   i.fa.fa-bars
+  //- |     
+  //- nav#sidebar-wrapper
+  //-   ul.sidebar-nav
+  //-     a#menu-close.btn.btn-light.btn-lg.pull-right.toggle(href='#')
+  //-       i.fa.fa-times
+  //-     |             
+  //-     li.sidebar-brand
+  //-       a(href='#top') UnForget
+  //-     |             
+  //-     li
+  //-       a(href='#top') Home
+  //-     |             
+  //-     li
+  //-       a(href='#about') About
+  //-     |             
+  //-     li
+  //-       a(href='#services') Services
+  //-     |             
+  //-     li
+  //-       a(href='#portfolio') Portfolio
+  //-     |             
+  //-     li
+  //-       a(href='#contact') Contact
+  // Header
+  header#top.header
+      nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+        .container-fluid
+            .navbar-header
+              a.navbar-brand(href='/') Unforget
+            a.navbar-text.navbar-right.navbar-link#navbar-logout(href='/logout') Logout
+      h1 UnForget 
+      h3 Hello, #{userName}!
+      br
+      h4 #{title}
+      #form.col-md-offset-5  
+        form.form-horizontal(name="add",method="post",action="/dashboard/" + title + '/' + id, role='form')
+          .form-group
+            .col-md-4
+              input#nameObj.form-control(type="text", placeholder="Object Name", name="nameObj")
+          .form-group
+            .col-md-4
+              input#locationObj.form-control(type="text", placeholder="Location", name="locationObj")
+          .form-group
+            .col-md-4
+               button#dash.btn.btn-default(type="submit") submit
+      br
+      div.table-responsive#format
+        table.table.table-hover#table
+          thead
+            tr 
+              th Object
+              th Last Placed 
+              th Last Touched
+              th Update/Delete?
+          tbody
+            each obj in objs
+              tr
+                td #{obj.name}
+                td #{obj.location}
+                td #{obj.user}
+                td
+                  a.button.btn.btn-primary.btn-xs.edit-delete(href='/update/#{title}/#{obj._id}') Update
+                  p.edit-delete / 
+                  a.button.btn.btn-danger.btn-xs.edit-delete(href='/delete/#{title}/#{obj._id}') Delete
+  // About
+  section#about.about
+    .container
+      .row
+        .col-lg-12.text-center
+          h2 Stylish Portfolio is the perfect theme for your next project!
+          |                     
+          p.lead
+            | This theme features some wonderful photography courtesy of 
+            a(target='_blank', href='http://join.deathtothestockphoto.com/') Death to the Stock Photo
+            | .
+      // /.row
+    // /.container
+  //- // Services
+  //- // The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/
+  //- section#services.services.bg-primary
+  //-   .container
+  //-     .row.text-center
+  //-       .col-lg-10.col-lg-offset-1
+  //-         h2 Our Services
+  //-         |                     
+  //-         hr.small
+  //-         |                     
+  //-         .row
+  //-           .col-md-3.col-sm-6
+  //-             .service-item
+  //-               span.fa-stack.fa-4x
+  //-                 i.fa.fa-circle.fa-stack-2x
+  //-                 |                                 
+  //-                 i.fa.fa-cloud.fa-stack-1x.text-primary
+  //-               |                                 
+  //-               h4
+  //-                 strong Service Name
+  //-               |                                 
+  //-               p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  //-               |                                 
+  //-               a.btn.btn-light(href='#') Learn More
+  //-           |                         
+  //-           .col-md-3.col-sm-6
+  //-             .service-item
+  //-               span.fa-stack.fa-4x
+  //-                 i.fa.fa-circle.fa-stack-2x
+  //-                 |                                 
+  //-                 i.fa.fa-compass.fa-stack-1x.text-primary
+  //-               |                                 
+  //-               h4
+  //-                 strong Service Name
+  //-               |                                 
+  //-               p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  //-               |                                 
+  //-               a.btn.btn-light(href='#') Learn More
+  //-           |                         
+  //-           .col-md-3.col-sm-6
+  //-             .service-item
+  //-               span.fa-stack.fa-4x
+  //-                 i.fa.fa-circle.fa-stack-2x
+  //-                 |                                 
+  //-                 i.fa.fa-flask.fa-stack-1x.text-primary
+  //-               |                                 
+  //-               h4
+  //-                 strong Service Name
+  //-               |                                 
+  //-               p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  //-               |                                 
+  //-               a.btn.btn-light(href='#') Learn More
+  //-           |                         
+  //-           .col-md-3.col-sm-6
+  //-             .service-item
+  //-               span.fa-stack.fa-4x
+  //-                 i.fa.fa-circle.fa-stack-2x
+  //-                 |                                 
+  //-                 i.fa.fa-shield.fa-stack-1x.text-primary
+  //-               |                                 
+  //-               h4
+  //-                 strong Service Name
+  //-               |                                 
+  //-               p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  //-               |                                 
+  //-               a.btn.btn-light(href='#') Learn More
+  //-         // /.row (nested)
+  //-       // /.col-lg-10
+  //-     // /.row
+  //-   // /.container
+  footer
+    .container
+      .row
+        .col-lg-10.col-lg-offset-1.text-center
+          h4
+            strong Start Bootstrap
+          |                     
+          p
+            | 3481 Melrose Place
+            br
+            | Beverly Hills, CA 90210
+          |                     
+          ul.list-unstyled
+            li
+              i.fa.fa-phone.fa-fw
+              |  (123) 456-7890
+            |                         
+            li
+              i.fa.fa-envelope-o.fa-fw
+              |   
+              a(href='mailto:name@example.com') name@example.com
+          |                     
+          br
+          |                     
+          ul.list-inline
+            li
+              a(href='#')
+                i.fa.fa-facebook.fa-fw.fa-3x
+            |                         
+            li
+              a(href='#')
+                i.fa.fa-twitter.fa-fw.fa-3x
+            |                         
+            li
+              a(href='#')
+                i.fa.fa-dribbble.fa-fw.fa-3x
+          |                     
+          hr.small
+          |                     
+          p.text-muted Copyright &copy; Your Website 2014

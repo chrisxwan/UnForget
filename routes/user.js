@@ -87,7 +87,7 @@ router.post('/login', function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) return next(err);
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect('/dashboard');
+      res.redirect('/dashboard/' + req.user._id);
     });
   })(req, res, next);
 });
@@ -146,90 +146,8 @@ router.post('/new-group', function(req, res, next) {
   res.redirect('/dashboard/' + req.user._id);
 });
 
-/* GET Dashboard page. */
-router.get('/dashboard', function(req, res) {
-  parseName = function(name) {
-    var index = name.indexOf(" ");
-    name = name.substring(0, index);
-    return name;
-  };
 
-	req.db.objs.find().toArray(function (error, objs) {
-    console.log(objs);
-		if(error) return next(error);
-    if(req.user) {
-  		res.render('dashboard', {
-  			title: 'Dashboard',
-        //need to fix this if there is nobody logged in
-        userName: parseName(req.user.name),
-  			objs: objs || []
-		  });
-    }
-    else {
-      res.redirect('/');
-    }
-	});
-});
 
-/* GET Customized Dashboard */
-router.get('/dashboard/:id', function(req, res) {
-  parseName = function(name) {
-    var index = name.indexOf(" ");
-    name = name.substring(0, index);
-    return name;
-  };
-
-  if(req.user) {
-    res.render('newdash', {
-      title: 'Dashboard',
-      userName: parseName(req.user.name),
-      groups: req.user.groups,
-      id: req.user._id
-    });
-  }
-   else {
-    res.redirect('/');
-  }
-});
-
-/* GET Group Dashboard */
-router.get('/dashboard/:name/:id', function(req, res) {
-  parseName = function(name) {
-    var index = name.indexOf(" ");
-    name = name.substring(0, index);
-    return name;
-  };
-
-  req.db.groups.findOne({"name": req.params.name}, function (error, group) {
-    if(error) return (error);
-    console.log(group.objs);
-    var objNames = group.objs;
-    var objs = [];
-    async.eachSeries(objNames, function(objName, callback) {
-      req.db.objs.findOne({'name': objName}, function(error, obj) {
-        if(error) return (error);
-        objs.push(obj);
-        callback();
-      });
-    },
-    function(error){
-      if(error) return (error);
-      console.log(objs);
-      if(req.user) {
-        res.render('groupdash', {
-          title: req.params.name,
-          id: req.user._id,
-          //need to fix this if there is nobody logged in
-          userName: parseName(req.user.name),
-          objs: objs || []
-        });
-      }
-      else {
-        res.redirect('/');
-      }
-    });
-  });
-});
 
 
 

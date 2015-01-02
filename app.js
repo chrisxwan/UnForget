@@ -13,6 +13,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var userRoutes = require('./routes/user');
+var dashboardRoutes = require('./routes/dashboard');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 mongoose.connect('mongodb://localhost/test');
@@ -99,6 +100,7 @@ app.use(favicon(__dirname + '/public/img/favicon.ico'));
 
 app.use('/', routes);
 app.use('/', userRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

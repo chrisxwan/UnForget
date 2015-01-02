@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  header#top.header
+    img#logo(src='/img/logo.png')
+    h1.not-front Create New Group
+    #signup-form.col-md-offset-4
+      form#signupFormHelper.form-horizontal(method='POST', action='/new-group')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+          .col-sm-6
+            input.form-control(type='text', name='name' id='name' placeholder='Name of group', autofocus)
+        .form-group
+          .col-sm-6
+            textarea.form-control(type='text', rows='3', name='description', placeholder='Description of group')
+        .form-group
+          .col-sm-6
+            textarea.form-control(type='text', rows='3', name='members', id='members', placeholder='Add group members separated by commas')
+        .form-group
+          .col-sm-7
+            button.btn.styled-button#signupButton(type='submit') Create Group
